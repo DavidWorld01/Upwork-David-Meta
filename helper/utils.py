@@ -92,7 +92,7 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I am out of service at this moment.',
                     'isPhoto': False
                 }
-        else:
+        elif words[0] == '/gen':
             message = ' '.join(words[1:])
             result = generate_image(message)
             if result['status'] == 1:
@@ -105,3 +105,8 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I am out of service at this moment.',
                     'isPhoto': False
                 }
+        else:
+            return {
+                'message': 'Sorry, I did not unserstand you.',
+                'isPhoto': False
+            }
