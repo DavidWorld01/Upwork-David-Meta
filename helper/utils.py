@@ -1,6 +1,7 @@
 from flask import request
 
-from outside_apis.openai_api import generate_image
+from outside_apis.openai_api import generate_image, text_complition
+
 
 def process_request(request: request) -> dict:
     '''
@@ -76,14 +77,31 @@ def generate_response(message: str) -> str:
             'openai': False
         }
     else:
-        result = generate_image(message)
-        if result['status'] == 1:
-            return {
-            'message': result['url'],
-            'openai': True
-        }
+        words = message.split()
+        print(words)
+        if words[0] == '/ask':
+            message = ' '.join(words[1:])
+            result = text_complition(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['response'].strip(),
+                    'isPhoto': False
+                }
+            else:
+                return {
+                    'message': 'Sorry, I am out of service at this moment.',
+                    'isPhoto': False
+                }
         else:
-            return {
-            'message': 'Sorry, I am out of service at this moment.',
-            'openai': False
-        }
+            message = ' '.join(words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I am out of service at this moment.',
+                    'isPhoto': False
+                }

@@ -21,7 +21,7 @@ def telegram_api():
         if data['secret_token'] == os.getenv('HEADER_TOKEN'):
             if data['is_text'] and not data['is_bot']:
                 response = generate_response(data['message'])
-                if response['openai']:
+                if response['isPhoto']:
                     _ = send_photo(data['sender_id'], response['message'])
                 else:
                     _ = send_message(data['sender_id'], response['message'])
