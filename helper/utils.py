@@ -22,6 +22,7 @@ def process_request(request: request) -> dict:
         }
     '''
     body = request.get_json()
+    print('Incoming telegram body...')
     print(body)
     headers = request.headers
     secret_token = headers['X-Telegram-Bot-Api-Secret-Token']
@@ -81,6 +82,7 @@ def generate_response(message: str) -> str:
         print(words)
         if words[0] == '/ask':
             message = ' '.join(words[1:])
+            print(f'Message for test- {message}')
             result = text_complition(message)
             if result['status'] == 1:
                 return {
@@ -92,8 +94,9 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I am out of service at this moment.',
                     'isPhoto': False
                 }
-        elif words[0] == '/gen':
+        elif words[0] == '/draw':
             message = ' '.join(words[1:])
+            print(f'Message for image - {message}')
             result = generate_image(message)
             if result['status'] == 1:
                 return {
