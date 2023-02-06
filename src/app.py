@@ -18,6 +18,8 @@ def telegram_api():
 
     if request.is_json:
         data = process_request(request)
+        print('Proccessed data...')
+        print(data)
         if data['secret_token'] == os.getenv('HEADER_TOKEN'):
             if data['is_text'] and not data['is_bot']:
                 response = generate_response(data['message'])
