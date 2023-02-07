@@ -106,6 +106,62 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
+        elif words[0] == '/pixelart':
+            draw ='pixel art'
+            message = ' '.join([draw] + words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I did not unserstand you.',
+                    'isPhoto': False
+                }
+        elif words[0] == '/emoji':
+            draw ='emoji'
+            message = ' '.join([draw] + words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I did not unserstand you.',
+                    'isPhoto': False
+                }
+        elif words[0] == '/anime':
+            draw ='anime'
+            message = ' '.join([draw] + words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I did not unserstand you.',
+                    'isPhoto': False
+                }
+        elif words[0] == '/3Drender':
+            draw ='3d render'
+            message = ' '.join([draw] + words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I did not unserstand you.',
+                    'isPhoto': False
+                }
         elif words[0] == '/gen':
             message = ' '.join(words[1:])
             result = generate_image(message)
@@ -121,6 +177,6 @@ def generate_response(message: str) -> str:
                 }
         else:
             return {
-                'message': 'Please use /draw , /gen , /ask.',
+                'message': 'Please use /draw , /gen , /pixelart , /emoji ,/anime ,/3Drender, /ask.',
                 'isPhoto': False
             }
