@@ -22,7 +22,6 @@ def process_request(request: request) -> dict:
         }
     '''
     body = request.get_json()
-    print('Incoming telegram body...')
     print(body)
     headers = request.headers
     secret_token = headers['X-Telegram-Bot-Api-Secret-Token']
@@ -69,7 +68,7 @@ def generate_response(message: str) -> str:
         }
     elif message == '/start':
         return {
-            'message': 'Hi, this is a chat-bot that uses OpenAI Dall-E2, developed by me with love. I will not spam you for sure.',
+            'message': 'Hi, this is a chat-bot , developed by me with love. I will not spam you for sure.',
             'isPhoto': False
         }
     elif len(message) < 2:
@@ -82,7 +81,6 @@ def generate_response(message: str) -> str:
         print(words)
         if words[0] == '/ask':
             message = ' '.join(words[1:])
-            print(f'Message for test- {message}')
             result = text_complition(message)
             if result['status'] == 1:
                 return {
@@ -91,12 +89,12 @@ def generate_response(message: str) -> str:
                 }
             else:
                 return {
-                    'message': 'Sorry, I am out of service at this moment.',
+                    'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
         elif words[0] == '/draw':
-            message = ' '.join(words[1:])
-            print(f'Message for image - {message}')
+            draw ='draw'
+            message = ' '.join([draw] + words[1:])
             result = generate_image(message)
             if result['status'] == 1:
                 return {
@@ -105,11 +103,24 @@ def generate_response(message: str) -> str:
                 }
             else:
                 return {
-                    'message': 'Sorry, I am out of service at this moment.',
+                    'message': 'Sorry, I did not unserstand you.',
+                    'isPhoto': False
+                }
+        elif words[0] == '/gen':
+            message = ' '.join(words[1:])
+            result = generate_image(message)
+            if result['status'] == 1:
+                return {
+                    'message': result['url'],
+                    'isPhoto': True
+                }
+            else:
+                return {
+                    'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
         else:
             return {
-                'message': 'Sorry, I did not unserstand you.',
+                'message': 'Please use /draw , /gen , /ask.',
                 'isPhoto': False
             }
