@@ -148,7 +148,7 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
-        elif words[0] == '/3D':
+        elif words[0] == '/3d':
             draw ='3d render'
             message = ' '.join([draw] + words[1:])
             result = generate_image(message)
