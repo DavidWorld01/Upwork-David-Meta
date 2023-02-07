@@ -63,7 +63,7 @@ def generate_response(message: str) -> str:
     '''
     if message == '/help':
         return {
-            'message': 'Please use /draw , /gen , /pixelart , /emoji ,/anime ,/3Drender, /ask :-)',
+            'message': 'Please use  /draw , /gen , /pixel , /emoji ,/anime ,/3d, /ask :-)',
             'isPhoto': False
         }
     elif message == '/start':
@@ -106,7 +106,7 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
-        elif words[0] == '/pixelart':
+        elif words[0] == '/pixel':
             draw ='pixel art'
             message = ' '.join([draw] + words[1:])
             result = generate_image(message)
@@ -148,7 +148,7 @@ def generate_response(message: str) -> str:
                     'message': 'Sorry, I did not unserstand you.',
                     'isPhoto': False
                 }
-        elif words[0] == '/3Drender':
+        elif words[0] == '/3D':
             draw ='3d render'
             message = ' '.join([draw] + words[1:])
             result = generate_image(message)
@@ -177,6 +177,6 @@ def generate_response(message: str) -> str:
                 }
         else:
             return {
-                'message': 'Please use /draw , /gen , /pixelart , /emoji ,/anime ,/3Drender, /ask.',
+                'message': 'Please use /draw , /gen , /pixel , /emoji ,/anime ,/3d, /ask.',
                 'isPhoto': False
             }
